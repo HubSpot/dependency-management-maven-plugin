@@ -1,6 +1,6 @@
 # dependency-management-plugin
 
-Maven Plugin Mojo for validating that the versions in dependency management match the resolved dependency versions
+Maven Plugin Mojo for validating that the versions in dependency management and plugin management match the resolved versions
 
 ### Available parameters
 
