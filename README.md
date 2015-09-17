@@ -14,7 +14,7 @@ Maven Plugin Mojo for validating that the versions in dependency management and 
 
 * requireManagement
 
-    Wrapper for configuration to make dependency and/or plugin management required.
+    Wrapper for configuration to make dependency and/or plugin management required. See [here](#full-usage-example) for an example
 
 ### Minimal usage example
 
