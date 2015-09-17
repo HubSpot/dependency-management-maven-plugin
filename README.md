@@ -10,7 +10,7 @@ Maven Plugin Mojo for validating that the versions in dependency management and 
 
 * fail
 
-    Whether to fail the build if any mismatches are found.  Defaults to false.
+    Whether to fail the build if any errors are found.  Defaults to false.
 
 ### Minimal usage example
 
