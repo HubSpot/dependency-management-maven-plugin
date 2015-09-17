@@ -73,10 +73,10 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
 
 ### Enforcer plugin example
 
-```
+```xml
 <plugins>
   ...
-<plugin>
+  <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-enforcer-plugin</artifactId>
     <version>1.4</version>
