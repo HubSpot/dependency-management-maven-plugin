@@ -24,7 +24,7 @@ Maven Plugin Mojo for validating that the versions in dependency management and 
   <plugin>
     <groupId>com.hubspot.maven.plugins</groupId>
     <artifactId>dependency-management-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <executions>
       <execution>
         <goals>
@@ -46,7 +46,7 @@ Maven Plugin Mojo for validating that the versions in dependency management and 
   <plugin>
     <groupId>com.hubspot.maven.plugins</groupId>
     <artifactId>dependency-management-plugin</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <executions>
       <execution>
         <goals>
