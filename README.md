@@ -25,7 +25,7 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
   <plugin>
     <groupId>com.hubspot.maven.plugins</groupId>
     <artifactId>dependency-management-plugin</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <executions>
       <execution>
         <goals>
@@ -47,7 +47,7 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
   <plugin>
     <groupId>com.hubspot.maven.plugins</groupId>
     <artifactId>dependency-management-plugin</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <executions>
       <execution>
         <goals>
@@ -86,7 +86,7 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
       <dependency>
         <groupId>com.hubspot.maven.plugins</groupId>
         <artifactId>dependency-management-plugin</artifactId>
-        <version>0.3</version>
+        <version>0.4</version>
       </dependency>
     </dependencies>
     <executions>
