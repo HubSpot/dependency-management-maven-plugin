@@ -59,6 +59,8 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
           <requireManagement>
             <dependencies>true</dependencies>
             <plugins>true</plugins>
+            <allowVersions>false</allowVersions>
+            <allowExclusions>false</allowExclusions>
             <exceptions>
               <exception>com.example:*</exception>
             </exceptions>
@@ -99,6 +101,8 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
               <requireManagement>
                 <dependencies>true</dependencies>
                 <plugins>true</plugins>
+                <allowVersions>false</allowVersions>
+                <allowExclusions>false</allowExclusions>                
                 <exceptions>
                   <exception>com.example:*</exception>
                 </exceptions>                
