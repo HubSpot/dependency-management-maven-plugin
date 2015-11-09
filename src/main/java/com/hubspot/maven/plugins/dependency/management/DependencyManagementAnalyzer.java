@@ -31,11 +31,13 @@ public class DependencyManagementAnalyzer {
 
   private boolean checkDependencyManagement() {
     Map<String, Dependency> managedDependencies = asMap(project.getDependencyManagement().getDependencies());
+    Map<String, Dependency> originalDependencies = asMap(project.getOriginalModel().getDependencies());
 
     boolean success = true;
     for (Dependency projectDependency : project.getDependencies()) {
       String dependencyKey = projectDependency.getManagementKey();
       Dependency managedDependency = managedDependencies.get(dependencyKey);
+      Dependency originalDependency = originalDependencies.get(dependencyKey);
 
       if (managedDependency != null) {
         String projectVersion = projectDependency.getVersion();
@@ -45,6 +47,16 @@ public class DependencyManagementAnalyzer {
           String errorFormat = "Version mismatch for %s, managed version %s does not match project version %s";
           log.warn(String.format(errorFormat, dependencyKey, managedVersion, projectVersion));
           success = false;
+        } else if (originalDependency != null) {
+          if (!requireManagement.allowVersions() && originalDependency.getVersion() != null) {
+            log.warn(String.format("Version tag must be removed for managed dependency %s", dependencyKey));
+            success = false;
+          }
+
+          if (!requireManagement.allowExclusions() && !originalDependency.getExclusions().isEmpty()) {
+            log.warn(String.format("Exclusions must be removed for managed dependency %s", dependencyKey));
+            success = false;
+          }
         }
       } else if (requireManagement.requireDependencyManagement() && !ignored(dependencyKey)) {
         log.warn(String.format("Dependency %s is not managed", dependencyKey));

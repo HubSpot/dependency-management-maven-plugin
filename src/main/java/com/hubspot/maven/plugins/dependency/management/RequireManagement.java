@@ -6,6 +6,8 @@ import java.util.List;
 public class RequireManagement {
   private boolean dependencies = false;
   private boolean plugins = false;
+  private boolean allowVersions = true;
+  private boolean allowExclusions = true;
   private List<String> exceptions = new ArrayList<>();
 
   public boolean requireDependencyManagement() {
@@ -22,6 +24,22 @@ public class RequireManagement {
 
   public void setPlugins(boolean plugins) {
     this.plugins = plugins;
+  }
+
+  public boolean allowVersions() {
+    return allowVersions;
+  }
+
+  public void setAllowVersions(boolean allowVersions) {
+    this.allowVersions = allowVersions;
+  }
+
+  public boolean allowExclusions() {
+    return allowExclusions;
+  }
+
+  public void setAllowExclusions(boolean allowExclusions) {
+    this.allowExclusions = allowExclusions;
   }
 
   public List<String> getExceptions() {
