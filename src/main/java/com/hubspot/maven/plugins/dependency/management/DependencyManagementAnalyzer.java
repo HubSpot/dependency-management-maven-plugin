@@ -6,6 +6,7 @@ import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.SelectorUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +31,8 @@ public class DependencyManagementAnalyzer {
   }
 
   private boolean checkDependencyManagement() {
-    Map<String, Dependency> managedDependencies = asMap(project.getDependencyManagement().getDependencies());
-    Map<String, Dependency> originalDependencies = asMap(project.getOriginalModel().getDependencies());
+    Map<String, Dependency> managedDependencies = getManagedDependenciesAsMap();
+    Map<String, Dependency> originalDependencies = getOriginalDependenciesAsMap();
 
     boolean success = true;
     for (Dependency projectDependency : project.getDependencies()) {
@@ -90,6 +91,22 @@ public class DependencyManagementAnalyzer {
     }
 
     return success;
+  }
+
+  private Map<String, Dependency> getManagedDependenciesAsMap() {
+    if (project.getDependencyManagement() == null || project.getDependencyManagement().getDependencies() == null) {
+      return Collections.emptyMap();
+    } else {
+      return asMap(project.getDependencyManagement().getDependencies());
+    }
+  }
+
+  private Map<String, Dependency> getOriginalDependenciesAsMap() {
+    if (project.getOriginalModel() == null || project.getOriginalModel().getDependencies() == null) {
+      return Collections.emptyMap();
+    } else {
+      return asMap(project.getOriginalModel().getDependencies());
+    }
   }
 
   private boolean ignored(String key) {
