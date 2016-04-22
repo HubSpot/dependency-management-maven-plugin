@@ -69,7 +69,7 @@ public class DependencyManagementAnalyzer {
   }
 
   private boolean checkPluginManagement() {
-    Map<String, Plugin> managedPlugins = project.getPluginManagement().getPluginsAsMap();
+    Map<String, Plugin> managedPlugins = getManagedPluginsAsMap();
 
     boolean success = true;
     for (Plugin projectPlugin : project.getBuildPlugins()) {
@@ -91,6 +91,14 @@ public class DependencyManagementAnalyzer {
     }
 
     return success;
+  }
+
+  private Map<String, Plugin> getManagedPluginsAsMap() {
+    if (project.getPluginManagement() == null) {
+      return Collections.emptyMap();
+    } else {
+      return project.getPluginManagement().getPluginsAsMap();
+    }
   }
 
   private Map<String, Dependency> getManagedDependenciesAsMap() {
