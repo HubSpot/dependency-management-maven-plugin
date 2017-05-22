@@ -1,15 +1,15 @@
 package com.hubspot.maven.plugins.dependency.management;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.SelectorUtils;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class DependencyManagementAnalyzer {
   private final MavenProject project;
@@ -49,7 +49,7 @@ public class DependencyManagementAnalyzer {
           log.warn(String.format(errorFormat, dependencyKey, managedVersion, projectVersion));
           success = false;
         } else if (originalDependency != null) {
-          if (!requireManagement.allowVersions() && originalDependency.getVersion() != null) {
+          if (!requireManagement.allowVersions() && originalDependency.getVersion() != null && !ignored(dependencyKey)) {
             log.warn(String.format("Version tag must be removed for managed dependency %s", dependencyKey));
             success = false;
           }
