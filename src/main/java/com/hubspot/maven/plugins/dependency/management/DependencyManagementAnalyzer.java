@@ -1,15 +1,15 @@
 package com.hubspot.maven.plugins.dependency.management;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.SelectorUtils;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class DependencyManagementAnalyzer {
   private final MavenProject project;
@@ -37,6 +37,7 @@ public class DependencyManagementAnalyzer {
     boolean success = true;
     for (Dependency projectDependency : project.getDependencies()) {
       String dependencyKey = projectDependency.getManagementKey();
+      RequireManagmentConfig config = getEffectiveRequireManagementConfig(dependencyKey);
       Dependency managedDependency = managedDependencies.get(dependencyKey);
       Dependency originalDependency = originalDependencies.get(dependencyKey);
 
@@ -49,17 +50,17 @@ public class DependencyManagementAnalyzer {
           log.warn(String.format(errorFormat, dependencyKey, managedVersion, projectVersion));
           success = false;
         } else if (originalDependency != null) {
-          if (!requireManagement.allowVersions() && originalDependency.getVersion() != null) {
+          if (!config.allowVersions() && originalDependency.getVersion() != null) {
             log.warn(String.format("Version tag must be removed for managed dependency %s", dependencyKey));
             success = false;
           }
 
-          if (!requireManagement.allowExclusions() && !originalDependency.getExclusions().isEmpty()) {
+          if (!config.allowExclusions() && !originalDependency.getExclusions().isEmpty()) {
             log.warn(String.format("Exclusions must be removed for managed dependency %s", dependencyKey));
             success = false;
           }
         }
-      } else if (requireManagement.requireDependencyManagement() && !ignored(dependencyKey)) {
+      } else if (config.requireDependencyManagement()) {
         log.warn(String.format("Dependency %s is not managed", dependencyKey));
         success = false;
       }
@@ -74,6 +75,7 @@ public class DependencyManagementAnalyzer {
     boolean success = true;
     for (Plugin projectPlugin : project.getBuildPlugins()) {
       Plugin managedPlugin = managedPlugins.get(projectPlugin.getKey());
+      RequireManagmentConfig config = getEffectiveRequireManagementConfig(projectPlugin.getKey());
 
       if (managedPlugin != null) {
         String projectVersion = projectPlugin.getVersion();
@@ -84,7 +86,7 @@ public class DependencyManagementAnalyzer {
           log.warn(String.format(errorFormat, projectPlugin.getKey(), managedVersion, projectVersion));
           success = false;
         }
-      } else if (requireManagement.requirePluginManagement() && !ignored(projectPlugin.getKey())) {
+      } else if (config.requirePluginManagement()) {
         log.warn(String.format("Plugin %s is not managed", projectPlugin.getKey()));
         success = false;
       }
@@ -117,18 +119,19 @@ public class DependencyManagementAnalyzer {
     }
   }
 
-  private boolean ignored(String key) {
+  private RequireManagmentConfig getEffectiveRequireManagementConfig(String key) {
     if (key.indexOf(':') != key.lastIndexOf(':')) {
       key = key.substring(0, key.indexOf(':', key.indexOf(':') + 1));
     }
-
-    for (String exception : requireManagement.getExceptions()) {
-      if (SelectorUtils.match(exception, key)) {
-        return true;
+    for (RequireManagementOverride override : requireManagement.getOverrides()) {
+      for (String exception : override.getExceptions()) {
+        if (SelectorUtils.match(exception, key)) {
+          System.out.println("Using override:" + override);
+          return override.toRequireManagementConfig(requireManagement);
+        }
       }
     }
-
-    return false;
+    return requireManagement;
   }
 
   private static Map<String, Dependency> asMap(List<Dependency> dependencies) {
