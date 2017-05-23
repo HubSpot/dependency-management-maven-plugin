@@ -126,7 +126,6 @@ public class DependencyManagementAnalyzer {
     for (RequireManagementOverride override : requireManagement.getOverrides()) {
       for (String exception : override.getExceptions()) {
         if (SelectorUtils.match(exception, key)) {
-          System.out.println("Using override:" + override);
           return override.toRequireManagementConfig(requireManagement);
         }
       }
