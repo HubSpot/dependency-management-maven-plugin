@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequireManagementOverride {
-  private List<String> exceptions = new ArrayList<>();
+  private List<String> patterns = new ArrayList<>();
   private Boolean dependencies = null;
   private Boolean plugins = null;
   private Boolean allowVersions = null;
   private Boolean allowExclusions = null;
 
-  public List<String> getExceptions() {
-    return exceptions;
+  public List<String> getPatterns() {
+    return patterns;
   }
 
-  public void setExceptions(List<String> exceptions) {
-    this.exceptions = exceptions;
+  public void setPatterns(List<String> patterns) {
+    this.patterns = patterns;
   }
 
   public void setDependencies(boolean dependencies) {

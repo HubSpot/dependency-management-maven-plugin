@@ -63,9 +63,9 @@ run as a standalone plugin or as a rule with the maven-enforcer-plugin.
             <allowExclusions>false</allowExclusions>
             <overrides>
               <override>
-                <exceptions>
-                  <exception>com.example:*</exception>
-                </exceptions>
+                <patterns>
+                  <pattern>com.example:*</pattern>
+                </patterns>
                 <dependencies>false</dependencies>
               </override>
             </overrides>

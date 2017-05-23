@@ -124,8 +124,8 @@ public class DependencyManagementAnalyzer {
       key = key.substring(0, key.indexOf(':', key.indexOf(':') + 1));
     }
     for (RequireManagementOverride override : requireManagement.getOverrides()) {
-      for (String exception : override.getExceptions()) {
-        if (SelectorUtils.match(exception, key)) {
+      for (String pattern : override.getPatterns()) {
+        if (SelectorUtils.match(pattern, key)) {
           return override.toRequireManagementConfig(requireManagement);
         }
       }
