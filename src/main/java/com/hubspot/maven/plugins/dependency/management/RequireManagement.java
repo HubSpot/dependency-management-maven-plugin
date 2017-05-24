@@ -3,13 +3,14 @@ package com.hubspot.maven.plugins.dependency.management;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequireManagement {
+public class RequireManagement implements RequireManagmentConfig {
   private boolean dependencies = false;
   private boolean plugins = false;
   private boolean allowVersions = true;
   private boolean allowExclusions = true;
-  private List<String> exceptions = new ArrayList<>();
+  private List<RequireManagementOverride> overrides = new ArrayList<>();
 
+  @Override
   public boolean requireDependencyManagement() {
     return dependencies;
   }
@@ -18,6 +19,7 @@ public class RequireManagement {
     this.dependencies = dependencies;
   }
 
+  @Override
   public boolean requirePluginManagement() {
     return plugins;
   }
@@ -26,6 +28,7 @@ public class RequireManagement {
     this.plugins = plugins;
   }
 
+  @Override
   public boolean allowVersions() {
     return allowVersions;
   }
@@ -34,6 +37,7 @@ public class RequireManagement {
     this.allowVersions = allowVersions;
   }
 
+  @Override
   public boolean allowExclusions() {
     return allowExclusions;
   }
@@ -42,11 +46,11 @@ public class RequireManagement {
     this.allowExclusions = allowExclusions;
   }
 
-  public List<String> getExceptions() {
-    return exceptions;
+  public List<RequireManagementOverride> getOverrides() {
+    return overrides;
   }
 
-  public void setExceptions(List<String> exceptions) {
-    this.exceptions = exceptions;
+  public void setOverrides(List<RequireManagementOverride> overrides) {
+    this.overrides = overrides;
   }
 }
