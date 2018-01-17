@@ -85,7 +85,6 @@ public class RequireManagementOverride {
       public String dependencyVersionDisallowedMessage() {
         return requireManagement.dependencyVersionDisallowedMessage();
       }
-
     };
   }
 
