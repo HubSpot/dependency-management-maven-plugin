@@ -15,8 +15,12 @@ public class DependencyManagementAnalyzer {
   private final MavenProject project;
   private final RequireManagement requireManagement;
   private final Log log;
-  private boolean dependencyversionMismatchError = false, unManagedDependencyError = false, unManagedPluginError = false,
-  pluginversionMismatchError = false, dependencyExclusionsError = false, dependencyVersionDisallowed = false;
+  private boolean dependencyversionMismatchError = false;
+  private boolean unmanagedDependencyError = false;
+  private boolean unmanagedPluginError = false;
+  private boolean pluginversionMismatchError = false;
+  private boolean dependencyExclusionsError = false;
+  private boolean dependencyVersionDisallowed = false;
 
 
   public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, Log log) {
@@ -30,12 +34,22 @@ public class DependencyManagementAnalyzer {
     // don't combine with previous line, we don't want short-circuit evaluation
     success &= checkPluginManagement();
     log.info("\n\n---- Issues found ----\n");
-    if (unManagedDependencyError) { log.warn(requireManagement.unManagedDependencyMessage()); }
-    if (dependencyversionMismatchError) { log.warn(requireManagement.dependencyVersionMismatchMessage()); }
-    if (unManagedPluginError) { log.warn(requireManagement.unManagedPluginMessage()); }
-    if (pluginversionMismatchError) { log.warn(requireManagement.pluginVersionMismatchMessage()); }
-    if (dependencyExclusionsError) { log.warn(requireManagement.dependencyExclusionsMessage()); }
-    if (dependencyVersionDisallowed) { log.warn(requireManagement.dependencyVersionDisallowedMessage()); }
+    if (unmanagedDependencyError) {
+      log.warn(requireManagement.unmanagedDependencyMessage());
+    }
+    if (dependencyversionMismatchError) {
+      log.warn(requireManagement.dependencyVersionMismatchMessage());
+    }
+    if (unmanagedPluginError) {
+      log.warn(requireManagement.unmanagedPluginMessage()); }
+    if (pluginversionMismatchError) {
+      log.warn(requireManagement.pluginVersionMismatchMessage());
+    }
+    if (dependencyExclusionsError) {
+      log.warn(requireManagement.dependencyExclusionsMessage()); }
+    if (dependencyVersionDisallowed) {
+      log.warn(requireManagement.dependencyVersionDisallowedMessage());
+    }
     return success;
   }
 
@@ -74,7 +88,7 @@ public class DependencyManagementAnalyzer {
         }
       } else if (config.requireDependencyManagement()) {
         log.warn(String.format("Dependency %s is not managed", dependencyKey));
-        unManagedDependencyError = true;
+        unmanagedDependencyError = true;
         success = false;
       }
     }
@@ -101,7 +115,7 @@ public class DependencyManagementAnalyzer {
         }
       } else if (config.requirePluginManagement()) {
         log.warn(String.format("Plugin %s is not managed", projectPlugin.getKey()));
-        unManagedPluginError = true;
+        unmanagedPluginError = true;
         success = false;
       }
     }

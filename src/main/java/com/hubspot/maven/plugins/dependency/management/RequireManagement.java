@@ -8,9 +8,9 @@ public class RequireManagement implements RequireManagmentConfig {
   private boolean plugins = false;
   private boolean allowVersions = true;
   private boolean allowExclusions = true;
-  private String unManagedDependencyMessage = null;
+  private String unmanagedDependencyMessage = null;
   private String dependencyVersionMismatchMessage = null;
-  private String unManagedPluginMessage = null;
+  private String unmanagedPluginMessage = null;
   private String pluginVersionMismatchMessage = null;
   private String dependencyExclusionsMessage = null;
   private String dependencyVersionDisallowedMessage = null;
@@ -62,12 +62,12 @@ public class RequireManagement implements RequireManagmentConfig {
   }
 
   @Override
-  public String unManagedDependencyMessage() {
-    return unManagedDependencyMessage;
+  public String unmanagedDependencyMessage() {
+    return unmanagedDependencyMessage;
   }
 
-  public void setunManagedDependencyMessage(String unManagedDependencyMessage) {
-    this.unManagedDependencyMessage = unManagedDependencyMessage;
+  public void setUnmanagedDependencyMessage(String unmanagedDependencyMessage) {
+    this.unmanagedDependencyMessage = unmanagedDependencyMessage;
   }
 
   @Override
@@ -80,12 +80,12 @@ public class RequireManagement implements RequireManagmentConfig {
   }
 
   @Override
-  public String unManagedPluginMessage() {
-    return unManagedPluginMessage;
+  public String unmanagedPluginMessage() {
+    return unmanagedPluginMessage;
   }
 
-  public void setUnManagedPluginMessage(String unManagedPluginMessage) {
-    this.unManagedPluginMessage = unManagedPluginMessage;
+  public void setUnmanagedPluginMessage(String unmanagedPluginMessage) {
+    this.unmanagedPluginMessage = unmanagedPluginMessage;
   }
 
   @Override

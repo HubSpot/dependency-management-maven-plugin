@@ -57,33 +57,33 @@ public class RequireManagementOverride {
       }
 
       @Override
-      public String unManagedDependencyMessage() {
-        return null;
+      public String unmanagedDependencyMessage() {
+        return requireManagement.unmanagedDependencyMessage();
       }
 
       @Override
       public String dependencyVersionMismatchMessage() {
-        return null;
+        return requireManagement.dependencyVersionMismatchMessage();
       }
 
       @Override
-      public String unManagedPluginMessage() {
-        return null;
+      public String unmanagedPluginMessage() {
+        return requireManagement.unmanagedPluginMessage();
       }
 
       @Override
       public String pluginVersionMismatchMessage() {
-        return null;
+        return requireManagement.pluginVersionMismatchMessage();
       }
 
       @Override
       public String dependencyExclusionsMessage() {
-        return null;
+        return requireManagement.dependencyExclusionsMessage();
       }
 
       @Override
       public String dependencyVersionDisallowedMessage() {
-        return null;
+        return requireManagement.dependencyVersionDisallowedMessage();
       }
 
     };
