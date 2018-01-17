@@ -20,7 +20,7 @@ public class DependencyManagementAnalyzer {
   private boolean unmanagedPluginError = false;
   private boolean pluginVersionMismatchError = false;
   private boolean dependencyExclusionsError = false;
-  private boolean dependencyVersionDisallowed = false;
+  private boolean dependencyVersionDisallowedError = false;
 
   public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, Log log) {
     this.project = project;
@@ -49,7 +49,7 @@ public class DependencyManagementAnalyzer {
     if (dependencyExclusionsError) {
       log.warn(requireManagement.dependencyExclusionsMessage());
     }
-    if (dependencyVersionDisallowed) {
+    if (dependencyVersionDisallowedError) {
       log.warn(requireManagement.dependencyVersionDisallowedMessage());
     }
 
@@ -79,7 +79,7 @@ public class DependencyManagementAnalyzer {
         } else if (originalDependency != null) {
           if (!config.allowVersions() && originalDependency.getVersion() != null) {
             log.warn(String.format("Version tag must be removed for managed dependency %s", dependencyKey));
-            dependencyVersionDisallowed = true;
+            dependencyVersionDisallowedError = true;
             success = false;
           }
 

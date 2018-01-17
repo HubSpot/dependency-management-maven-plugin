@@ -111,7 +111,7 @@ public class RequireManagement implements RequireManagmentConfig {
     return dependencyVersionDisallowedMessage;
   }
 
-  public void setdependencyVersionDisallowedMessage(String dependencyVersionDisallowedMessage) {
+  public void setDependencyVersionDisallowedMessage(String dependencyVersionDisallowedMessage) {
     this.dependencyVersionDisallowedMessage = dependencyVersionDisallowedMessage;
   }
 }
