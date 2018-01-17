@@ -8,6 +8,13 @@ public class RequireManagement implements RequireManagmentConfig {
   private boolean plugins = false;
   private boolean allowVersions = true;
   private boolean allowExclusions = true;
+  private String unManagedDependencyMessage = null;
+  private String dependencyVersionMismatchMessage = null;
+  private String unManagedPluginMessage = null;
+  private String pluginVersionMismatchMessage = null;
+  private String dependencyExclusionsMessage = null;
+  private String dependencyVersionDisallowedMessage = null;
+
   private List<RequireManagementOverride> overrides = new ArrayList<>();
 
   @Override
@@ -52,5 +59,59 @@ public class RequireManagement implements RequireManagmentConfig {
 
   public void setOverrides(List<RequireManagementOverride> overrides) {
     this.overrides = overrides;
+  }
+
+  @Override
+  public String unManagedDependencyMessage() {
+    return unManagedDependencyMessage;
+  }
+
+  public void setunManagedDependencyMessage(String unManagedDependencyMessage) {
+    this.unManagedDependencyMessage = unManagedDependencyMessage;
+  }
+
+  @Override
+  public String dependencyVersionMismatchMessage() {
+    return dependencyVersionMismatchMessage;
+  }
+
+  public void setDependencyVersionMismatchMessage(String dependencyVersionMismatchMessage) {
+    this.dependencyVersionMismatchMessage = dependencyVersionMismatchMessage;
+  }
+
+  @Override
+  public String unManagedPluginMessage() {
+    return unManagedPluginMessage;
+  }
+
+  public void setUnManagedPluginMessage(String unManagedPluginMessage) {
+    this.unManagedPluginMessage = unManagedPluginMessage;
+  }
+
+  @Override
+  public String pluginVersionMismatchMessage() {
+    return pluginVersionMismatchMessage;
+  }
+
+  public void setPluginVersionMismatchMessage(String pluginVersionMismatchMessage) {
+    this.pluginVersionMismatchMessage = pluginVersionMismatchMessage;
+  }
+
+  @Override
+  public String dependencyExclusionsMessage() {
+    return dependencyExclusionsMessage;
+  }
+
+  public void setDependencyExclusionsMessage(String dependencyExclusionsMessage) {
+    this.dependencyExclusionsMessage = dependencyExclusionsMessage;
+  }
+
+  @Override
+  public String dependencyVersionDisallowedMessage() {
+    return dependencyVersionDisallowedMessage;
+  }
+
+  public void setdependencyVersionDisallowedMessage(String dependencyVersionDisallowedMessage) {
+    this.dependencyVersionDisallowedMessage = dependencyVersionDisallowedMessage;
   }
 }

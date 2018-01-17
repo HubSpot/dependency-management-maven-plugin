@@ -15,6 +15,9 @@ public class DependencyManagementAnalyzer {
   private final MavenProject project;
   private final RequireManagement requireManagement;
   private final Log log;
+  private boolean dependencyversionMismatchError = false, unManagedDependencyError = false, unManagedPluginError = false,
+  pluginversionMismatchError = false, dependencyExclusionsError = false, dependencyVersionDisallowed = false;
+
 
   public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, Log log) {
     this.project = project;
@@ -26,7 +29,13 @@ public class DependencyManagementAnalyzer {
     boolean success = checkDependencyManagement();
     // don't combine with previous line, we don't want short-circuit evaluation
     success &= checkPluginManagement();
-
+    log.info("\n\n---- Issues found ----\n");
+    if (unManagedDependencyError) { log.warn(requireManagement.unManagedDependencyMessage()); }
+    if (dependencyversionMismatchError) { log.warn(requireManagement.dependencyVersionMismatchMessage()); }
+    if (unManagedPluginError) { log.warn(requireManagement.unManagedPluginMessage()); }
+    if (pluginversionMismatchError) { log.warn(requireManagement.pluginVersionMismatchMessage()); }
+    if (dependencyExclusionsError) { log.warn(requireManagement.dependencyExclusionsMessage()); }
+    if (dependencyVersionDisallowed) { log.warn(requireManagement.dependencyVersionDisallowedMessage()); }
     return success;
   }
 
@@ -48,24 +57,27 @@ public class DependencyManagementAnalyzer {
         if (!projectVersion.equals(managedVersion)) {
           String errorFormat = "Version mismatch for %s, managed version %s does not match project version %s";
           log.warn(String.format(errorFormat, dependencyKey, managedVersion, projectVersion));
+          dependencyversionMismatchError = true;
           success = false;
         } else if (originalDependency != null) {
           if (!config.allowVersions() && originalDependency.getVersion() != null) {
             log.warn(String.format("Version tag must be removed for managed dependency %s", dependencyKey));
+            dependencyVersionDisallowed = true;
             success = false;
           }
 
           if (!config.allowExclusions() && !originalDependency.getExclusions().isEmpty()) {
             log.warn(String.format("Exclusions must be removed for managed dependency %s", dependencyKey));
+            dependencyExclusionsError = true;
             success = false;
           }
         }
       } else if (config.requireDependencyManagement()) {
         log.warn(String.format("Dependency %s is not managed", dependencyKey));
+        unManagedDependencyError = true;
         success = false;
       }
     }
-
     return success;
   }
 
@@ -84,10 +96,12 @@ public class DependencyManagementAnalyzer {
         if (!projectVersion.equals(managedVersion)) {
           String errorFormat = "Version mismatch for plugin %s, managed version %s does not match project version %s";
           log.warn(String.format(errorFormat, projectPlugin.getKey(), managedVersion, projectVersion));
+          pluginversionMismatchError = true;
           success = false;
         }
       } else if (config.requirePluginManagement()) {
         log.warn(String.format("Plugin %s is not managed", projectPlugin.getKey()));
+        unManagedPluginError = true;
         success = false;
       }
     }

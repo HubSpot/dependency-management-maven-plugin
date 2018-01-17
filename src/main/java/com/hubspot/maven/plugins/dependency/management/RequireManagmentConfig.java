@@ -5,4 +5,10 @@ public interface RequireManagmentConfig {
   boolean requirePluginManagement();
   boolean allowVersions();
   boolean allowExclusions();
+  String unManagedDependencyMessage();
+  String dependencyVersionMismatchMessage();
+  String unManagedPluginMessage();
+  String pluginVersionMismatchMessage();
+  String dependencyExclusionsMessage();
+  String dependencyVersionDisallowedMessage();
 }
