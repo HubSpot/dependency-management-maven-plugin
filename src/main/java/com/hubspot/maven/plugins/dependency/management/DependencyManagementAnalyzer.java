@@ -28,8 +28,8 @@ public class DependencyManagementAnalyzer {
   public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, boolean fail, Log log) {
     this.project = project;
     this.requireManagement = requireManagement;
-    this.log = log;
     this.fail = fail;
+    this.log = log;
   }
 
   public boolean analyze() {
