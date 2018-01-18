@@ -55,6 +55,36 @@ public class RequireManagementOverride {
       public boolean allowExclusions() {
         return fallbackIfNull(allowExclusions, requireManagement.allowExclusions());
       }
+
+      @Override
+      public String unmanagedDependencyMessage() {
+        return requireManagement.unmanagedDependencyMessage();
+      }
+
+      @Override
+      public String dependencyVersionMismatchMessage() {
+        return requireManagement.dependencyVersionMismatchMessage();
+      }
+
+      @Override
+      public String unmanagedPluginMessage() {
+        return requireManagement.unmanagedPluginMessage();
+      }
+
+      @Override
+      public String pluginVersionMismatchMessage() {
+        return requireManagement.pluginVersionMismatchMessage();
+      }
+
+      @Override
+      public String dependencyExclusionsMessage() {
+        return requireManagement.dependencyExclusionsMessage();
+      }
+
+      @Override
+      public String dependencyVersionDisallowedMessage() {
+        return requireManagement.dependencyVersionDisallowedMessage();
+      }
     };
   }
 
