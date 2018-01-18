@@ -36,7 +36,7 @@ public class DependencyManagementAnalyzer {
     success &= checkPluginManagement();
 
 
-    if (errorMessages.size() > 0) {
+    if (!errorMessages.isEmpty()) {
       log.warn("");
       for(String msg : errorMessages) {
         log.warn(msg);
