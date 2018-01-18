@@ -47,15 +47,6 @@ public class DependencyManagementAnalyzer {
     return success;
   }
 
-  private void logMessage(String message) {
-    if (fail) {
-      log.error(message);
-    }
-    else {
-      log.warn(message);
-    }
-  }
-
   private boolean checkDependencyManagement() {
     Map<String, Dependency> managedDependencies = getManagedDependenciesAsMap();
     Map<String, Dependency> originalDependencies = getOriginalDependenciesAsMap();
@@ -196,5 +187,14 @@ public class DependencyManagementAnalyzer {
     }
 
     return dependencyMap;
+  }
+
+  private void logMessage(String message) {
+    if (fail) {
+      log.error(message);
+    }
+    else {
+      log.warn(message);
+    }
   }
 }
