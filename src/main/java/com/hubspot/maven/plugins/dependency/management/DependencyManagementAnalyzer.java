@@ -15,7 +15,7 @@ import org.codehaus.plexus.util.SelectorUtils;
 public class DependencyManagementAnalyzer {
   private final MavenProject project;
   private final RequireManagement requireManagement;
-  private Consumer<String> logger;
+  private final Consumer<String> violationLogger;
   private boolean dependencyVersionMismatchError = false;
   private boolean unmanagedDependencyError = false;
   private boolean unmanagedPluginError = false;
@@ -24,10 +24,10 @@ public class DependencyManagementAnalyzer {
   private boolean dependencyVersionDisallowedError = false;
   private List<String> errorMessages = new ArrayList<String>();
 
-  public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, Consumer<String> logger) {
+  public DependencyManagementAnalyzer(MavenProject project, RequireManagement requireManagement, Consumer<String> violationLogger) {
     this.project = project;
     this.requireManagement = requireManagement;
-    this.logger = logger;
+    this.violationLogger = violationLogger;
   }
 
   public boolean analyze() {
@@ -37,9 +37,7 @@ public class DependencyManagementAnalyzer {
 
     if (!errorMessages.isEmpty()) {
       logViolation("");
-      for(String msg : errorMessages) {
-        logViolation(msg);
-      }
+      errorMessages.forEach(this::logViolation);
     }
 
     return success;
@@ -188,6 +186,6 @@ public class DependencyManagementAnalyzer {
   }
 
   private void logViolation(String message) {
-    logger.accept(message);
+    violationLogger.accept(message);
   }
 }
