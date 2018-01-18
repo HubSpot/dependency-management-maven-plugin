@@ -30,7 +30,7 @@ public class DependencyManagementMojo extends AbstractMojo {
       return;
     }
 
-    boolean success = new DependencyManagementAnalyzer(project, requireManagement, fail, getLog()).analyze();
+    boolean success = new DependencyManagementAnalyzer(project, requireManagement, fail ? getLog()::error : getLog()::warn).analyze();
     if (success) {
       getLog().info("No dependency management issues found");
     } else if (fail) {
