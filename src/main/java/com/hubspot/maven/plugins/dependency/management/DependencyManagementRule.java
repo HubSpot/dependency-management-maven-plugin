@@ -9,6 +9,7 @@ import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluatio
 public class DependencyManagementRule implements EnforcerRule {
 
   private RequireManagement requireManagement = new RequireManagement();
+  private boolean fail;
 
   @Override
   public void execute(EnforcerRuleHelper helper) throws EnforcerRuleException {
@@ -19,7 +20,7 @@ public class DependencyManagementRule implements EnforcerRule {
       throw new EnforcerRuleException("Unable to resolve Maven Project", e);
     }
 
-    boolean success = new DependencyManagementAnalyzer(project, requireManagement, helper.getLog()).analyze();
+    boolean success = new DependencyManagementAnalyzer(project, requireManagement, fail, helper.getLog()).analyze();
     if (!success) {
       throw new EnforcerRuleException("Dependency management issues found");
     }
