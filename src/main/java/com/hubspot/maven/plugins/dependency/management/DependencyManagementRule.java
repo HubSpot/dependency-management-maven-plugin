@@ -19,7 +19,7 @@ public class DependencyManagementRule implements EnforcerRule {
       throw new EnforcerRuleException("Unable to resolve Maven Project", e);
     }
 
-    boolean success = new DependencyManagementAnalyzer(project, requireManagement, helper.getLog()).analyze();
+    boolean success = new DependencyManagementAnalyzer(project, requireManagement, helper.getLog()::warn).analyze();
     if (!success) {
       throw new EnforcerRuleException("Dependency management issues found");
     }
