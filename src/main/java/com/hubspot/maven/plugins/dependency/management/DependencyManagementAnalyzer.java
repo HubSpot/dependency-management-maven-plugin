@@ -36,7 +36,6 @@ public class DependencyManagementAnalyzer {
     success &= checkPluginManagement();
 
     if (!errorMessages.isEmpty()) {
-      //logViolation("");
       errorMessages.forEach(this::logViolation);
     }
 
