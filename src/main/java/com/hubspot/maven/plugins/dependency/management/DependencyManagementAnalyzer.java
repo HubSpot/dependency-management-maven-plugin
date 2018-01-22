@@ -36,7 +36,10 @@ public class DependencyManagementAnalyzer {
     success &= checkPluginManagement();
 
     if (!errorMessages.isEmpty()) {
-      errorMessages.forEach(this::logViolation);
+      errorMessages.forEach(message -> {
+        violationLogger.accept("------------------------------------------------------------------------");
+        logViolation(message);
+      });
     }
 
     return success;
@@ -185,7 +188,6 @@ public class DependencyManagementAnalyzer {
   }
 
   private void logViolation(String message) {
-    violationLogger.accept("------------------------------------------------------------------------");
     violationLogger.accept(message);
   }
 }
