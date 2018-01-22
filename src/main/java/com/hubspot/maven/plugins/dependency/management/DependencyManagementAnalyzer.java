@@ -36,8 +36,10 @@ public class DependencyManagementAnalyzer {
     success &= checkPluginManagement();
 
     if (!errorMessages.isEmpty()) {
-      logViolation("");
-      errorMessages.forEach(this::logViolation);
+      errorMessages.forEach(message -> {
+        logViolation("------------------------------------------------------------------------");
+        logViolation(message);
+      });
     }
 
     return success;
@@ -85,19 +87,19 @@ public class DependencyManagementAnalyzer {
 
     if (dependencyVersionMismatchError && requireManagement.dependencyVersionMismatchMessage() != null) {
       errorMessages.add("Found versions mismatches in managed dependencies:");
-      errorMessages.add("  " + requireManagement.dependencyVersionMismatchMessage());
+      errorMessages.add(requireManagement.dependencyVersionMismatchMessage());
     }
     if (dependencyVersionDisallowedError && requireManagement.dependencyVersionDisallowedMessage() != null) {
       errorMessages.add("Found version in managed dependencies:");
-      errorMessages.add("  " + requireManagement.dependencyVersionDisallowedMessage());
+      errorMessages.add(requireManagement.dependencyVersionDisallowedMessage());
     }
     if (dependencyExclusionsError && requireManagement.dependencyExclusionsMessage() != null) {
       errorMessages.add("Found exclusions in managed dependencies:");
-      errorMessages.add("  " + requireManagement.dependencyExclusionsMessage());
+      errorMessages.add(requireManagement.dependencyExclusionsMessage());
     }
     if (unmanagedDependencyError && requireManagement.unmanagedDependencyMessage() != null) {
       errorMessages.add("Found unmanaged dependencies:");
-      errorMessages.add("  " + requireManagement.unmanagedDependencyMessage());
+      errorMessages.add(requireManagement.unmanagedDependencyMessage());
     }
     return success;
   }
@@ -128,11 +130,11 @@ public class DependencyManagementAnalyzer {
     }
     if (pluginVersionMismatchError && requireManagement.pluginVersionMismatchMessage() != null) {
       errorMessages.add("Found version mismatches in plugins:");
-      errorMessages.add("  " + requireManagement.pluginVersionMismatchMessage());
+      errorMessages.add(requireManagement.pluginVersionMismatchMessage());
     }
     if (unmanagedPluginError && requireManagement.unmanagedPluginMessage() != null) {
       errorMessages.add("Found unmanaged plugins:");
-      errorMessages.add("  " + requireManagement.unmanagedPluginMessage());
+      errorMessages.add(requireManagement.unmanagedPluginMessage());
     }
 
     return success;
