@@ -29,6 +29,9 @@
 
   <properties>
     <basepom.check.skip-license>true</basepom.check.skip-license>
+
+    <!-- version 3.0.0-M1 doesn't seem to work with our S3 wagon -->
+    <dep.plugin.deploy.version>2.8.2</dep.plugin.deploy.version>
   </properties>
 
   <dependencies>
