@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.basepom</groupId>
     <artifactId>basepom-oss</artifactId>
-    <version>18</version>
+    <version>28</version>
   </parent>
 
   <groupId>com.hubspot.maven.plugins</groupId>
@@ -27,15 +27,8 @@
     </developer>
   </developers>
 
-  <prerequisites>
-    <maven>3</maven>
-  </prerequisites>
-
   <properties>
-    <project.build.targetJdk>1.8</project.build.targetJdk>
     <basepom.check.skip-license>true</basepom.check.skip-license>
-    <basepom.check.skip-findbugs>true</basepom.check.skip-findbugs>
-    <basepom.test.timeout>120</basepom.test.timeout>
   </properties>
 
   <dependencies>
