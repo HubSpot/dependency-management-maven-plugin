@@ -61,8 +61,10 @@ public class DependencyManagementAnalyzer {
         String managedVersion = managedDependency.getVersion();
 
         if (!projectVersion.equals(managedVersion)) {
-          String errorFormat = "Version mismatch for %s, managed version %s does not match project version %s";
+          String errorFormat = "Version mismatch for %s, managed version %s does not match version %s declared in module's pom";
+          String additionalMessage = "If you intended to use the version specified in dependency management, please remove the version from this module's dependency declaration.";
           logViolation(String.format(errorFormat, dependencyKey, managedVersion, projectVersion));
+          logViolation(additionalMessage);
           dependencyVersionMismatchError = true;
           success = false;
         } else if (originalDependency != null) {
@@ -117,8 +119,10 @@ public class DependencyManagementAnalyzer {
         String managedVersion = managedPlugin.getVersion();
 
         if (!projectVersion.equals(managedVersion)) {
-          String errorFormat = "Version mismatch for plugin %s, managed version %s does not match project version %s";
+          String errorFormat = "Version mismatch for plugin %s, managed version %s does not match version %s declared in module's pom";
+          String additionalMessage = "If you intended to use the version specified in dependency management, please remove the version from this module's plugin dependency declaration.";
           logViolation(String.format(errorFormat, projectPlugin.getKey(), managedVersion, projectVersion));
+          logViolation(additionalMessage);
           pluginVersionMismatchError = true;
           success = false;
         }
