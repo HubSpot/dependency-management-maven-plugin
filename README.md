@@ -1,5 +1,7 @@
 # dependency-management-plugin
 
+## This plugin has been adopted by the basepom project, and now lives [here](https://github.com/basepom/maven-plugins/tree/main/dependency-management)
+
 Maven Plugin for validating that the versions in dependency management and plugin management match the resolved versions. Can be
 run as a standalone plugin or as a rule with the maven-enforcer-plugin.
 
